@@ -1,197 +1,137 @@
-<div align="center">
-
-# ⚖️ VIBRATION-IMMUNE SMART DIGITAL WEIGHING SCALE
+#                ⚖️ VIBRATION-IMMUNE SMART DIGITAL WEIGHING SCALE
 
 ### Using STM32 & Digital Signal Processing
 
-**An Intelligent Embedded Weighing System for Stable and Reliable Weight Measurement Under Vibration Conditions**
+<p align="center">
+  <b>An Intelligent Embedded Weighing System for Improved Measurement Stability Under Vibration Conditions</b>
+</p>
 
-<br>
-
-**GROUP 6 | DIGITAL SIGNAL PROCESSING PROJECT**
-
-<br>
-
-`STM32` · `Embedded C` · `DSP` · `FIR Filtering` · `FFT Analysis`
-
-<br>
-
-![Project](https://img.shields.io/badge/Project-Embedded%20Systems-0078D4?style=for-the-badge)
-![Controller](https://img.shields.io/badge/Controller-STM32-03234B?style=for-the-badge)
-![Technology](https://img.shields.io/badge/Technology-DSP-009688?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Development-orange?style=for-the-badge)
-
-</div>
+<p align="center">
+  <img src="https://img.shields.io/badge/Project-Completed-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Platform-STM32-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Language-Embedded%20C-orange?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Technology-DSP-purple?style=for-the-badge" />
+</p>
 
 ---
 
-## 📌 1. Project Overview
+## 📌 About The Project
 
-Conventional digital weighing scales often experience unstable readings when subjected to external vibrations and mechanical disturbances.
+The **Vibration-Immune Smart Digital Weighing Scale** is an embedded systems project developed as part of the Digital Signal Processing (24ECJ502) course at TKM College of Engineering.
 
-The **Vibration-Immune Smart Digital Weighing Scale** aims to address this problem using Digital Signal Processing (DSP) techniques.
+Conventional digital weighing scales may produce unstable readings when exposed to external vibrations and mechanical disturbances. These disturbances introduce unwanted fluctuations into load-cell signals, affecting measurement stability.
 
-The proposed system integrates a load cell, HX711 24-bit ADC module, and STM32 NUCLEO-F411RE microcontroller to acquire and process weight measurements.
+This project explores the application of **Digital Signal Processing (DSP)** techniques to improve the stability and reliability of weight measurements.
 
-FIR low-pass filtering is used to reduce unwanted signal fluctuations, while Fast Fourier Transform (FFT) analysis examines the frequency components associated with vibrations.
+The system integrates a 3 kg load cell, HX711 24-bit ADC module, and STM32 NUCLEO-F411RE microcontroller. FIR low-pass filtering is investigated to reduce unwanted signal fluctuations, while Fast Fourier Transform (FFT) analysis is used to identify dominant vibration frequency components.
 
-The processed weight measurement is displayed on an SSD1306 OLED display, providing a clear and more stable weight estimate.
+The measured weight is displayed on an SSD1306 OLED display, providing a convenient real-time monitoring interface.
 
-### 💡 Our Approach
+## 🎯 Project Objectives
 
-**LOAD CELL → HX711 ADC → STM32 → DIGITAL SIGNAL PROCESSING → STABLE WEIGHT DISPLAY**
-
----
-
-## 🎯 2. Problem Statement
-
-Environmental vibrations can introduce unwanted fluctuations into load-cell signals, resulting in unstable weight measurements.
-
-The project investigates:
-
-**Can Digital Signal Processing and FFT-based analysis improve weight stability in an STM32-based weighing system under vibration conditions while maintaining measurement accuracy and response time?**
-
----
-
-## 🚀 3. Project Objectives
-
-* Develop a digital weighing system using a load cell, HX711 ADC, and STM32 NUCLEO-F411RE.
-* Implement digital filtering to reduce vibration-related signal fluctuations.
+* Develop a digital weighing system using STM32 NUCLEO-F411RE.
+* Interface a load cell with the HX711 24-bit ADC module.
+* Investigate FIR filtering techniques for reducing vibration-induced fluctuations.
 * Perform FFT-based frequency analysis to identify dominant vibration components.
-* Evaluate the system using reference masses under controlled vibration conditions.
-* Display processed weight measurements through an OLED display.
+* Evaluate the system using reference masses under selected vibration conditions.
+* Display weight measurements through an SSD1306 OLED display.
 
----
-
-## 🏗️ 4. System Architecture
+## 🏗️ System Architecture
 
 ### Block Diagram
 
 ```text
-       ┌──────────────────────┐
-       │    LOAD PLATFORM    │
-       └──────────┬───────────┘
-                  │
-                  ▼
-       ┌──────────────────────┐
-       │      LOAD CELL       │
-       │  Mechanical to       │
-       │  Electrical Signal   │
-       └──────────┬───────────┘
-                  │
-                  ▼
-       ┌──────────────────────┐
-       │       HX711          │
-       │  Signal Conditioning │
-       │  & 24-bit ADC        │
-       └──────────┬───────────┘
-                  │
-                  ▼
-       ┌──────────────────────┐
-       │   STM32 NUCLEO       │
-       │      F411RE          │
-       │  Data Acquisition    │
-       └──────────┬───────────┘
-                  │
-                  ▼
-       ┌──────────────────────┐
-       │    FIR FILTERING     │
-       │  Signal Stabilization│
-       └──────────┬───────────┘
-                  │
-                  ▼
-       ┌──────────────────────┐
-       │     FFT ANALYSIS     │
-       │ Vibration Frequency  │
-       │     Detection        │
-       └──────────┬───────────┘
-                  │
-                  ▼
-       ┌──────────────────────┐
-       │  WEIGHT CALCULATION  │
-       │    & CALIBRATION     │
-       └──────────┬───────────┘
-                  │
-                  ▼
-       ┌──────────────────────┐
-       │    SSD1306 OLED      │
-       │  Processed Weight    │
-       │      Display         │
-       └──────────────────────┘
+       LOAD PLATFORM
+             |
+             ▼
+          LOAD CELL
+             |
+             ▼
+       HX711 (24-bit ADC)
+             |
+             ▼
+      STM32 NUCLEO-F411RE
+             |
+       ┌─────┴─────┐
+       ▼           ▼
+   FIR FILTER   FFT ANALYSIS
+       |           |
+       ▼           ▼
+    SIGNAL      FREQUENCY
+ STABILIZATION  DETECTION
+       |           |
+       └─────┬─────┘
+             ▼
+     WEIGHT CALCULATION
+       & CALIBRATION
+             |
+             ▼
+        SSD1306 OLED
+        WEIGHT DISPLAY
 ```
 
----
-
-## 🔧 5. Hardware Components
+## 🔧 Hardware Components
 
 | Sl. No. | Component          | Specification       |
 | :-----: | ------------------ | ------------------- |
 |    1    | Microcontroller    | STM32 NUCLEO-F411RE |
 |    2    | Load Cell          | 3 kg                |
-|    3    | ADC Module         | HX711 24-bit        |
+|    3    | ADC Module         | HX711 (24-bit)      |
 |    4    | Display            | SSD1306 OLED        |
 |    5    | Display Resolution | 128 × 64 pixels     |
 |    6    | Connecting Wires   | Jumper Wires        |
 
----
+## 💻 Software & Technologies
 
-## 💻 6. Software & Technologies
+| Technology    | Application                  |
+| ------------- | ---------------------------- |
+| Embedded C    | Microcontroller programming  |
+| STM32CubeIDE  | Firmware development         |
+| MATLAB        | DSP simulation and analysis  |
+| Wokwi         | Hardware simulation          |
+| Tera Term     | Serial monitoring            |
+| FIR Filtering | Signal fluctuation reduction |
+| FFT           | Frequency-domain analysis    |
+| I2C           | OLED communication           |
+| UART          | Serial communication         |
 
-| Technology    | Application                              |
-| ------------- | ---------------------------------------- |
-| Embedded C    | Microcontroller programming              |
-| STM32CubeIDE  | Firmware development                     |
-| MATLAB        | Digital signal processing and simulation |
-| Wokwi         | Virtual hardware simulation              |
-| Tera Term     | Serial monitoring                        |
-| FIR Filtering | Signal fluctuation reduction             |
-| FFT           | Frequency-domain analysis                |
-| UART          | Serial communication                     |
-| I2C           | OLED communication                       |
+## ⚙️ Working Principle
 
----
+### 1. Weight Sensing
 
-## ⚙️ 7. Working Principle
+The load cell detects the applied mechanical force and converts it into a proportional electrical signal.
 
-The system operates through the following stages:
+### 2. Signal Conditioning
 
-**01. Weight Sensing**
+The HX711 module amplifies the weak electrical signal from the load cell and converts it into digital data using its integrated 24-bit ADC.
 
-The load cell detects the applied force and converts it into a proportional electrical signal.
+### 3. Data Acquisition
 
-**02. Signal Conditioning**
+The STM32 NUCLEO-F411RE receives the digital measurements from the HX711 module at approximately 80 samples per second.
 
-The HX711 module amplifies the weak load-cell signal and converts it into digital data using its 24-bit ADC.
+### 4. FIR Low-Pass Filtering
 
-**03. Data Acquisition**
+A Finite Impulse Response (FIR) low-pass filter is investigated to attenuate unwanted higher-frequency signal variations and obtain smoother weight readings.
 
-The STM32 NUCLEO-F411RE acquires the digital measurements at approximately 80 samples per second.
+### 5. FFT Analysis
 
-**04. FIR Filtering**
+Fast Fourier Transform (FFT) analysis examines the frequency components of the sampled signal to identify dominant vibration frequencies.
 
-A Finite Impulse Response (FIR) low-pass filter is used to reduce unwanted fluctuations in the measured signal.
+### 6. Weight Calculation and Calibration
 
-**05. FFT Analysis**
+The sensor readings are calibrated using known reference masses to obtain meaningful weight measurements.
 
-Fast Fourier Transform analysis examines the frequency components of the sampled signal and identifies dominant vibration frequencies.
+### 7. Output Display
 
-**06. Weight Calculation**
+The measured weight is displayed on the SSD1306 OLED screen for real-time monitoring.
 
-Calibration using known reference masses converts the sensor readings into meaningful weight measurements.
+## 📊 Digital Signal Processing
 
-**07. OLED Display**
-
-The processed weight measurement is displayed on the SSD1306 OLED screen.
-
----
-
-## 📊 8. Digital Signal Processing
-
-DSP is the core technology behind this project.
+Digital Signal Processing is the core concept explored in this project.
 
 ### A. FIR Low-Pass Filtering
 
-A 40th-order FIR low-pass filter with a 5 Hz cutoff frequency is used in the MATLAB simulation.
+A 40th-order FIR low-pass filter with a cutoff frequency of 5 Hz is used in the MATLAB simulation.
 
 | Parameter                   |        Value |
 | --------------------------- | -----------: |
@@ -200,145 +140,100 @@ A 40th-order FIR low-pass filter with a 5 Hz cutoff frequency is used in the MAT
 | Filter Order                |           40 |
 | Number of Coefficients      |           41 |
 | Normalized Cutoff Frequency |        0.125 |
-| Group Delay                 |   20 samples |
-| Time Delay                  | 0.25 seconds |
+| Group Delay                 |   20 Samples |
+| Time Delay                  | 0.25 Seconds |
 
 The FIR filter helps attenuate unwanted higher-frequency variations in the measured signal.
 
 ### B. Fast Fourier Transform (FFT)
 
-FFT is used to examine the frequency-domain characteristics of the sampled signal.
+FFT analysis is used to examine the frequency-domain characteristics of the sampled signal.
 
 | Parameter                    |       Value |
 | ---------------------------- | ----------: |
 | Sampling Frequency           |       80 Hz |
-| FFT Size                     | 256 samples |
-| Observation Time             | 3.2 seconds |
+| FFT Size                     | 256 Samples |
+| Observation Time             | 3.2 Seconds |
 | Frequency Resolution         |   0.3125 Hz |
 | Nyquist Frequency            |       40 Hz |
 | Simulated Dominant Frequency |       20 Hz |
 
-The simulation identifies a dominant frequency component of 20 Hz and associates it with a packaging press through predefined source-classification logic.
+The MATLAB simulation identifies a dominant vibration frequency of 20 Hz.
 
----
+The simulation associates this frequency with a packaging press using predefined source-classification logic.
 
-## 📈 9. Simulation Results
+## 📈 Simulation Results
 
-The MATLAB simulation evaluates the effectiveness of FIR filtering by comparing raw and filtered signals against a reference weight profile.
+MATLAB simulation was conducted to evaluate the performance of FIR filtering by comparing raw and filtered signals against a reference weight profile.
 
 ### RMS Error Comparison
 
-| Parameter          |  Raw Signal | FIR Filtered Signal |
-| ------------------ | ----------: | ------------------: |
-| RMS Error          | 0.036239 kg |         0.003285 kg |
-| RMS Error in Grams |    36.239 g |             3.285 g |
+| Parameter      | Raw Signal | FIR Filtered Signal |
+| -------------- | ---------: | ------------------: |
+| RMS Error (kg) |   0.036239 |            0.003285 |
+| RMS Error (g)  |     36.239 |               3.285 |
 
-### Key Simulation Result
+### Key Result
 
 **Approximately 90.93% reduction in RMS error was observed after FIR filtering in the MATLAB simulation.**
 
-This demonstrates improved agreement between the filtered signal and the reference weight profile under the simulated conditions.
+This indicates improved agreement between the filtered signal and the reference weight profile under the simulated conditions.
 
-> Note: The 90.93% improvement is a MATLAB simulation result, not a verified physical hardware performance measurement.
+> **Note:** The 90.93% improvement is a MATLAB simulation result. It does not represent experimentally verified hardware accuracy or vibration rejection performance.
 
-### Result Visualization
+## 🔬 Hardware Implementation & Testing
 
-Add your MATLAB result images here:
+The physical prototype was developed and tested using the following components:
 
-| Raw Signal           | FIR Filtered Signal       |
-| -------------------- | ------------------------- |
-| Add raw signal graph | Add filtered signal graph |
+* STM32 NUCLEO-F411RE microcontroller.
+* 3 kg load cell.
+* HX711 amplifier and ADC module.
+* SSD1306 OLED display.
 
-| FFT Spectrum  | MATLAB Simulation            |
-| ------------- | ---------------------------- |
-| Add FFT graph | Add MATLAB output screenshot |
+The practical implementation demonstrates the operation of the hardware components and the weight measurement process.
 
----
+### Experimental Testing
 
-## 🔬 10. Experimental Testing
+The testing procedure included:
 
-The physical prototype integrates:
+* Baseline measurements without intentionally applied vibration.
+* Weight measurements using reference masses.
+* Testing under selected external vibration conditions.
+* Observation of OLED readings under different conditions.
+* Analysis of measurement stability.
 
-* STM32 NUCLEO-F411RE
-* 3 kg Load Cell
-* HX711 ADC Module
-* SSD1306 OLED Display
+The project report describes selected vibration conditions, including 18 Hz and 26 Hz.
 
-The experimental procedure considers:
+Further repeatable measurements are necessary to establish quantitative hardware performance.
 
-1. Baseline measurements without intentionally applied vibration.
-2. Measurements under controlled vibration conditions.
-3. Comparison of raw and processed readings.
-4. Evaluation using known reference masses.
-5. Analysis of measurement stability and accuracy.
+## ✨ Advantages
 
-The project report describes testing at selected vibration frequencies, including 18 Hz and 26 Hz conditions.
+* **Improved Signal Stability:** Digital filtering helps reduce unwanted fluctuations in load-cell measurements.
+* **Frequency Analysis:** FFT helps investigate frequency components associated with vibrations.
+* **Embedded Processing:** STM32 provides a platform for sensor acquisition and embedded signal processing.
+* **Real-Time Display:** OLED provides a convenient interface for viewing weight measurements.
+* **Modular Architecture:** The system allows future integration of advanced filtering and compensation techniques.
 
-Further repeatable hardware measurements are required to establish quantitative vibration-rejection performance.
-
----
-
-## ✨ 11. Advantages
-
-**Improved Signal Stability**
-
-Digital filtering helps reduce unwanted fluctuations in load-cell measurements.
-
-**Frequency Analysis**
-
-FFT helps investigate dominant frequency components associated with vibrations.
-
-**Embedded Processing**
-
-The STM32 microcontroller performs the required signal acquisition and processing.
-
-**Real-Time Display**
-
-The OLED provides a direct view of the processed weight.
-
-**Modular Architecture**
-
-The system allows future integration of advanced filtering and vibration compensation techniques.
-
----
-
-## ⚠️ 12. Limitations
+## ⚠️ Limitations
 
 * Filtering may introduce delay and slow the response to changes in weight.
 * A fixed filter may not suppress every vibration frequency effectively.
 * The approximately 80 Hz sampling rate limits the measurable frequency range.
 * Current testing covers selected vibration frequencies and reference masses.
-* Quantitative performance claims require recorded measurements, calibration details, and repeatable testing.
+* Quantitative performance claims require recorded measurements, calibration details and repeatable testing.
 
----
+## 🚀 Future Scope
 
-## 🔮 13. Future Scope
+The project can be further enhanced through the following developments:
 
-The project can be extended through the following improvements:
+1. **Adaptive Filtering:** Adjust filter characteristics according to changing vibration conditions.
+2. **Advanced Frequency Analysis:** Explore frequency-dependent filtering and adaptive notch filters.
+3. **Vibration Sensing:** Integrate an accelerometer for direct vibration measurement.
+4. **Data Logging:** Enable long-term storage and analysis of weight measurements.
+5. **Wireless Connectivity:** Introduce remote monitoring and IoT-based data visualization.
+6. **Extended Testing:** Evaluate different loads, vibration frequencies and mechanical configurations.
 
-**Adaptive Filtering**
-
-Adjust filter characteristics according to changing vibration conditions.
-
-**Advanced Frequency Analysis**
-
-Explore frequency-dependent filtering and adaptive notch filters.
-
-**Vibration Sensing**
-
-Integrate an accelerometer for direct measurement of mechanical vibrations.
-
-**Data Logging & Connectivity**
-
-Enable long-term storage of measurements and remote monitoring.
-
-**Extended Experimental Testing**
-
-Evaluate different loads, vibration frequencies, and mechanical configurations.
-
----
-
-## 💰 14. Project Expenditure
+## 💰 Project Expenditure
 
 | Sl. No. | Component                      |   Cost (₹) |
 | :-----: | ------------------------------ | ---------: |
@@ -350,70 +245,27 @@ Evaluate different loads, vibration frequencies, and mechanical configurations.
 |    6    | Miscellaneous                  |        100 |
 |         | **Total**                      | **₹2,600** |
 
----
-
-## 📷 15. Project Gallery
-
-### Hardware Implementation
-
-Add photographs of the actual prototype here.
-
-| Hardware Setup          | OLED Display        |
-| ----------------------- | ------------------- |
-| Add hardware photograph | Add OLED photograph |
-
-### Simulation & Analysis
-
-| MATLAB Results    | Experimental Setup     |
-| ----------------- | ---------------------- |
-| Add MATLAB graphs | Add testing photograph |
-
----
-
-## 👨‍💻 16. Project Team
-
-**GROUP 6 – Electronics and Communication Engineering**
-
-| Name          | Institution                |
-| ------------- | -------------------------- |
-| Devakrishna R | TKM College of Engineering |
-| M Niranjana   | TKM College of Engineering |
-| Arya K S      | TKM College of Engineering |
-| Karthik S     | TKM College of Engineering |
-
-**Institution:** TKM College of Engineering, Kollam
-
-**Department:** Electronics and Communication Engineering
-
-**Course:** 24ECJ502 – Digital Signal Processing
-
-**University:** APJ Abdul Kalam Technological University
-
-**Project Year:** 2026
-
----
-
-## 📚 17. References
+## 📚 References
 
 1. J. Fraden, *Handbook of Modern Sensors: Physics, Designs, and Applications*, 4th Edition, Springer, 2010.
 2. R. G. Lyons, *Understanding Digital Signal Processing*, 3rd Edition, Prentice Hall, 2011.
 3. S. W. Smith, *The Scientist and Engineer's Guide to Digital Signal Processing*, 2nd Edition, 1999.
-4. STMicroelectronics, STM32F411xC/E Microcontroller Reference Manual.
-5. AVIA Semiconductor, HX711 24-Bit Analog-to-Digital Converter Datasheet.
-6. Texas Instruments, Digital Filter Design Reference Notes.
+4. STMicroelectronics, *STM32F411xC/E Advanced ARM-Based 32-Bit MCU Reference Manual*, RM0383.
+5. AVIA Semiconductor, *HX711 24-Bit Analog-to-Digital Converter for Weigh Scales Datasheet*.
+6. Texas Instruments, *Digital Filter Design Reference Notes*, SLAA114, 2001.
 
 ---
 
-<div align="center">
+<p align="center">
 
-# ⚡ ENGINEERING MEETS INTELLIGENCE ⚡
+### ⚡ ENGINEERING MEETS INTELLIGENCE ⚡
 
-### Building Smarter Measurement Systems Through Digital Signal Processing
+**Building Smarter Measurement Systems Through Digital Signal Processing**
 
-**Vibration-Immune Smart Digital Weighing Scale**
+<br>
 
-*Designed & Developed by Group 6*
+**PROJECT COMPLETED – 2026**
 
-**TKM COLLEGE OF ENGINEERING | 2026**
+**GROUP 6 | TKM COLLEGE OF ENGINEERING**
 
-</div>
+</p>
