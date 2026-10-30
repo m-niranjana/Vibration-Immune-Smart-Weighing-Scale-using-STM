@@ -1,7 +1,6 @@
-#                ⚖️ VIBRATION-IMMUNE SMART DIGITAL WEIGHING SCALE
-
-### Using STM32 & Digital Signal Processing
-
+# ⚖️ VIBRATION-IMMUNE SMART DIGITAL WEIGHING SCALE
+<p align="center">
+Using STM32 & Digital Signal Processing
 <p align="center">
   <b>An Intelligent Embedded Weighing System for Improved Measurement Stability Under Vibration Conditions</b>
 </p>
@@ -40,35 +39,8 @@ The measured weight is displayed on an SSD1306 OLED display, providing a conveni
 
 ### Block Diagram
 
-```text
-       LOAD PLATFORM
-             |
-             ▼
-          LOAD CELL
-             |
-             ▼
-       HX711 (24-bit ADC)
-             |
-             ▼
-      STM32 NUCLEO-F411RE
-             |
-       ┌─────┴─────┐
-       ▼           ▼
-   FIR FILTER   FFT ANALYSIS
-       |           |
-       ▼           ▼
-    SIGNAL      FREQUENCY
- STABILIZATION  DETECTION
-       |           |
-       └─────┬─────┘
-             ▼
-     WEIGHT CALCULATION
-       & CALIBRATION
-             |
-             ▼
-        SSD1306 OLED
-        WEIGHT DISPLAY
-```
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/4c20b23a-30dd-41e7-8c01-79dff61542bb" />
+
 
 ## 🔧 Hardware Components
 
@@ -179,8 +151,6 @@ MATLAB simulation was conducted to evaluate the performance of FIR filtering by 
 
 This indicates improved agreement between the filtered signal and the reference weight profile under the simulated conditions.
 
-> **Note:** The 90.93% improvement is a MATLAB simulation result. It does not represent experimentally verified hardware accuracy or vibration rejection performance.
-
 ## 🔬 Hardware Implementation & Testing
 
 The physical prototype was developed and tested using the following components:
@@ -245,6 +215,7 @@ The project can be further enhanced through the following developments:
 |    6    | Miscellaneous                  |        100 |
 |         | **Total**                      | **₹2,600** |
 
+
 ## 📚 References
 
 1. J. Fraden, *Handbook of Modern Sensors: Physics, Designs, and Applications*, 4th Edition, Springer, 2010.
@@ -257,15 +228,3 @@ The project can be further enhanced through the following developments:
 ---
 
 <p align="center">
-
-### ⚡ ENGINEERING MEETS INTELLIGENCE ⚡
-
-**Building Smarter Measurement Systems Through Digital Signal Processing**
-
-<br>
-
-**PROJECT COMPLETED – 2026**
-
-**GROUP 6 | TKM COLLEGE OF ENGINEERING**
-
-</p>
